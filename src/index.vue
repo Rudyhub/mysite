@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import welcome from './index/welcome'
-import command from './index/command'
-import keyboard from './index/keyboard'
+import welcome from './components/welcome'
+import command from './components/command'
+import keyboard from './components/keyboard'
 import music from '../utils/music.js'
 export default {
   name: 'home',

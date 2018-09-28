@@ -49,11 +49,11 @@
 </template>
 
 <script>
-import bookCover from '../components/bookCover'
-import popup from '../components/popup'
+import bookCover from './components/bookCover'
+import popup from './components/popup'
 import utils from '../utils/utils.js'
-import navbar from '../components/navbar'
-import linkList from '../components/linkList'
+import navbar from './components/navbar'
+import linkList from './components/linkList'
 export default {
   name: 'works',
   components: {bookCover, popup, navbar, linkList},

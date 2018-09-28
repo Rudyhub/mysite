@@ -5,12 +5,14 @@ const fs = require('fs');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-let pagePath, distPath, srcPath, stats, entry, output;
+let pagePath, distPath, srcPath, servPath, stats, entry, output;
 pagePath = path.join(__dirname, 'page');
 distPath = path.join(__dirname, 'dist');
 srcPath = path.join(__dirname, 'src');
-
-
+servPath = path.join(__dirname, '_serv');
+if(!fs.existsSync(servPath)){
+    fs.mkdirSync(servPath);
+}
 entry = (() => {
     let o, files, tempFile, name;
     o = {};
@@ -19,7 +21,7 @@ entry = (() => {
     if(Array.isArray(files)){
         files.forEach(src => {
             name = path.basename(src).slice(0, -5);
-            tempFile = srcPath + path.sep + name + '.js';
+            tempFile = servPath + path.sep + name + '.js';
             o[name] = tempFile;
         });
     }
@@ -45,10 +47,11 @@ stats = {
 
 function Myplugin(){}
 Myplugin.prototype.apply = function(compiler){
+    let isServer = /webpack-dev-server\.js/i.test(process.argv[1]);
     compiler.hooks.entryOption.tap('Myplugin', (context, opt) => {
         for(let name in opt){
-            fs.writeFileSync(path.join(srcPath, name+'.js'), `
-                import App from './${name}.vue';
+            fs.writeFileSync(path.join(servPath, name+'.js'), `
+                import App from '../src/${name}.vue';
                 import Vue from 'vue';
                 new Vue({
                     el: '#app',
@@ -61,15 +64,12 @@ Myplugin.prototype.apply = function(compiler){
     compiler.hooks.done.tap('Myplugin', () => {
         for(let k in entry) {
             let html = path.join(pagePath, k+'.html'),
-                js = /webpack-dev-server\.js/i.test(process.argv[1]) ? './' : './js/',
+                js = isServer ? './' : './js/',
                 code;
-            console.log(js)
             try{
                 code = fs.readFileSync(html, 'utf8');
                 fs.writeFileSync(distPath + '/' + k + '.html', code.replace(/<\/body>/, '<script src="'+js+k+'.js"></script>\n</body>'));
-            }catch (e) {
-            }
-            fs.unlink(entry[k], (err) => {})
+            }catch (e) {}
         }
     })
 };

@@ -59,8 +59,8 @@
 
 <script>
 import utils from '../utils/utils.js'
-import popup from '../components/popup'
-import navbar from '../components/navbar'
+import popup from './components/popup'
+import navbar from './components/navbar'
 export default {
   name: 'about',
   components: {navbar, popup},

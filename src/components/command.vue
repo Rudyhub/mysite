@@ -149,7 +149,8 @@ export default {
           if (val === 'home') {
             _this.pushLine('这就是首页了噻')
           } else {
-            _this.$router.push(page)
+            let uri = window.location.protocol + '//' + window.location.host + '/' + page +'.html'
+            window.location = uri
           }
           return
         }
