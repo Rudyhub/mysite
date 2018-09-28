@@ -1,0 +1,86 @@
+html{
+  font-size: 625%;
+  height: 100%;
+}
+body{
+  margin: 0;
+  font-family: "Source Sans Pro", "Helvetica Neue", Arial, "Microsoft YaHei", "微软雅黑", SimSun, "宋体", sans-serif;
+  font-size: 16px;
+  background: #111;
+  height: 100%;
+}
+a{
+  text-decoration: none;
+}
+a:link{
+  color: #264bb7;
+}
+a:visited{
+  color: #553a37;
+}
+.fs20{
+  font-size: .42rem;
+}
+.fs18{
+  font-size: .378rem;
+}
+.fs16{
+  font-size: .336rem;
+}
+.fs14{
+  font-size: .294rem;
+}
+.fs12{
+  font-size: .252rem;
+}
+.fs10{
+  font-size: .21rem;
+}
+.fs9{
+  font-size: .189rem;
+}
+.fs8{
+  font-size: .168rem;
+}
+.flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+.flex-column{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.flex-between{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center;
+}
+.fade-enter-active,
+.fade-leave-active{
+  transition: opacity .5s;
+}
+.fade-enter,
+.fade-leave-to{
+  opacity: 0;
+}
+@keyframes fade-in {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
