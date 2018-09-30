@@ -6,9 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --inline --progress --mode development",
     "dev": "webpack --progress --mode development",
-    "build": "webpack --progress --mode production",
-    "bb": "node build.js bb",
-    "cc": "node build.js cc"
+    "build": "webpack --progress --mode production"
   },
   "author": "rudy",
   "license": "ISC",
