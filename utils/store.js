@@ -1,6 +1,6 @@
 export default {
   nav: Object.freeze({
-    home: '首页',
+    index: '首页',
     about: '个人',
     works: '作品',
     blog: '博客',

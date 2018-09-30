@@ -93,7 +93,7 @@ export default {
     }
     return opt
   },
-  scroll (el, direction, preventKeys = []) {
+  scroll (el, direction, preventKeys = [], propagation = false) {
     let isTouch, events, start, end, startTop, prev, speed, prevent, scroll, client, len, i, timer
 
     isTouch = 'ontouchstart' in document
@@ -120,7 +120,7 @@ export default {
     }
 
     function startFn (e) {
-      e.stopPropagation()
+      if(propagation) e.stopPropagation()
       for (i = 0; i < len; i++) {
         if (e[preventKeys[i]]) return false
       }
@@ -133,7 +133,7 @@ export default {
     }
 
     function moveFn (e) {
-      e.stopPropagation()
+      if(propagation) e.stopPropagation()
       if (!e.ctrlKey) {
         e.preventDefault()
       }
@@ -144,14 +144,14 @@ export default {
     }
 
     function endFn (e) {
-      e.stopPropagation()
+      if(propagation) e.stopPropagation()
       el.removeEventListener(events[1], moveFn, prevent)
       document.removeEventListener(events[2], endFn)
       easeOut(Math.abs(speed), end - start, end - start < 0 ? 1 : -1)
     }
 
     function wheel (e) {
-      e.stopPropagation()
+      if(propagation) e.stopPropagation()
       for (i = 0; i < len; i++) {
         if (e[preventKeys[i]]) {
           return false

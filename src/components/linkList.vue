@@ -83,7 +83,7 @@ export default {
   methods: {
     getFavicon: utils.favicon,
     hrefFilter (href, index) {
-      return /^https?:\/\//.test(href) ? href : href + '/' + index
+      return  /^https?:\/\//.test(href) ? href : href + '&' + index
     },
     giveHref (href) {
       return !href ? [this.href] : href

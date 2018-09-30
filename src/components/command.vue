@@ -110,7 +110,7 @@ export default {
     help (nav) {
       let html = '<div class="command-answer-title">访问页面：</div><div class="command-answer-detail fs8">'
       for (let k in nav) {
-        if (k === 'home') continue
+        if (k === 'index') continue
         html += '<span class="command-fc0">访问' + nav[k] + '</span>：可输入的指令有“' + nav[k] + '”、“' + k + '”<br>'
       }
       html += `</div>
@@ -146,7 +146,7 @@ export default {
       if (!val) return
       for (let page in store.nav) {
         if (page === val || store.nav[page] === val) {
-          if (val === 'home') {
+          if (val === 'index') {
             _this.pushLine('这就是首页了噻')
           } else {
             let uri = window.location.protocol + '//' + window.location.host + '/' + page +'.html'
@@ -159,7 +159,7 @@ export default {
         if (store.aiKeys[aiKey].test(val)) {
           switch (aiKey) {
             case 'help':
-              _this.pushLine(store.help())
+              _this.pushLine(_this.help(store.nav))
               return
             case 'clear':
               _this.lines.splice(0, _this.lines.length)

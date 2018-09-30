@@ -196,12 +196,12 @@ export default {
     text-align: center;
     white-space: nowrap;
     font-size: 14px;
-    opacity: 0.4;
+    opacity: 0.6;
   }
   a.ICP-a{
     display: inline-block;
     vertical-align: middle;
-    color: #fee;
+    color: #fff;
     padding: 0 1em;
   }
   .ICP-img, .ICP-span{
