@@ -1,5 +1,5 @@
 export default {
-  rootPath: 'http://localhost:8000',
+  rootPath: 'https://670752970.com/api/music.php',
   _lrc: {
     time: [],
     text: [],
@@ -117,7 +117,7 @@ export default {
   },
   find (songName, fn) {
     let xhr = new XMLHttpRequest()
-    xhr.open('get', this.rootPath + '?songName=' + songName, true)
+    xhr.open('get', this.rootPath + '?song=' + songName, true)
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4 && xhr.status === 200) {
         try {

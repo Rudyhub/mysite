@@ -249,7 +249,7 @@ export default {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
             try {
-              resolve(JSON.parse(xhr.response))
+              resolve(typeof xhr.response === 'object' ? xhr.response : JSON.parse(xhr.response))
             } catch (e) {
               e.message = '响应的数据格式错误导致无法转为json，具体错误：' + e.message
               reject(e)

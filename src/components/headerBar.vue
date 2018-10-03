@@ -36,6 +36,7 @@ export default {
     padding: 1em 0;
     border-bottom: 1px solid #ddd;
     font-size: 16px;
+    box-sizing: border-box;
   }
   .header-container{
     max-width: 800px;

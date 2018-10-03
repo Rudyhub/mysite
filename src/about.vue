@@ -61,6 +61,7 @@
 import utils from '../utils/utils.js'
 import popup from './components/popup'
 import navbar from './components/navbar'
+import store from '../utils/store'
 export default {
   name: 'about',
   components: {navbar, popup},
@@ -133,7 +134,7 @@ export default {
     utils.scroll(this.$refs.glassCareer, '', scrollPrevent)
 
     utils.ajax({
-      url: 'http://localhost:8000?jsonFile=about'
+      url: store.dataApi + '?name=about'
     }).then(res => {
       for (let k in res) {
         if (res.hasOwnProperty(k)) {

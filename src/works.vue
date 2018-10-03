@@ -54,6 +54,7 @@ import popup from './components/popup'
 import utils from '../utils/utils.js'
 import navbar from './components/navbar'
 import linkList from './components/linkList'
+import store from '../utils/store.js'
 export default {
   name: 'works',
   components: {bookCover, popup, navbar, linkList},
@@ -109,7 +110,7 @@ export default {
       }
     })
     utils.ajax({
-      url: 'http://localhost:8000?jsonFile=works'
+      url: store.dataApi + '?name=works'
     }).then(res => {
       let len, i, local
       len = Object.keys(res).length

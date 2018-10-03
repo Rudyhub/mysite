@@ -28,10 +28,24 @@ export default {
       AI: [],
       ask: '',
       lines: [],
-      historyIndex: 0
+      historyIndex: 0,
+      aiKeys: Object.freeze({
+        help: /^(帮助|help|-h|-?[?？]|查看指令)$/,
+        clear: /^(cls|clear|清除|清屏)$/,
+        song: /^听\s+/,
+        songPause: /^((-m|music)\s+(off|pause|puase)|暂停音乐|安静|嘘|静音)\s*$/,
+        songPlay: /^((-m|music)\s+(on|play)|播放(音乐|歌曲))\s*$/,
+        songStop: /^((-m|music)\s+stop|停止(播放|音乐))\s*$/,
+        songLoop: /^((-m|music)\s+loop|单曲循环)\s*$/,
+        songNum: /^\d+$/,
+        songList: /^((-m|music)\s+list|查看歌单|歌单|歌曲列表)\s*$/,
+        songName: /^((-m|music)\s+name|(查看)?歌名)\s*$/,
+        songNext: /^((-m|music)\s+next|下一首)\s*$/,
+        songPrev: /^((-m|music)\s+prev|上一首)\s*$/
+      })
     }
     utils.ajax({
-      url: 'http://localhost:8000?jsonFile=ai'
+      url: store.dataApi+'?name=ai'
     }).then(res => {
       res.forEach((item, i) => {
         let ask, g
@@ -155,8 +169,8 @@ export default {
           return
         }
       }
-      for (let aiKey in store.aiKeys) {
-        if (store.aiKeys[aiKey].test(val)) {
+      for (let aiKey in _this.aiKeys) {
+        if (_this.aiKeys[aiKey].test(val)) {
           switch (aiKey) {
             case 'help':
               _this.pushLine(_this.help(store.nav))
@@ -166,7 +180,7 @@ export default {
               _this.ask = ''
               return
             case 'song':
-              music.search(val.replace(store.aiKeys[aiKey], ''), () => {
+              music.search(val.replace(_this.aiKeys[aiKey], ''), () => {
                 _this.pushLine(_this.musicList())
               })
               return
@@ -209,6 +223,7 @@ export default {
               })
               return
           }
+          break
         }
       }
       for (len = _this.AI.length; i < len; i++) {
