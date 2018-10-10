@@ -6,5 +6,5 @@ export default {
     blog: '博客',
     album: '相册'
   }),
-  dataApi: 'https://670752970.com/api/data.php'
+  dataApi: (/(670752970|isrudy)\.com/.test(window.location.hostname) ? '' : 'https://670752970.com') + '/api/data.php'
 }

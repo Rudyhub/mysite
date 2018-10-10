@@ -1,5 +1,5 @@
 export default {
-  rootPath: 'https://670752970.com/api/music.php',
+  rootPath: (/(670752970|isrudy)\.com/.test(window.location.hostname) ? '' : 'https://670752970.com') + '/api/music.php',
   _lrc: {
     time: [],
     text: [],

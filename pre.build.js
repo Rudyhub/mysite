@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const config = require('./config');
 const fns = {
+  time: new Date().getTime(),
   globalAttr: ['title', 'meta', 'link', 'script', 'style'],
   getHead(pageObj) {
     let code = ['<head>   '];
@@ -22,7 +23,7 @@ const fns = {
     return code.join('\n    ') + '\n</head>';
   },
   getBody(js) {
-    return '<body>    ' + '\n    ' + config.global.body + '\n    <script src="' + js + '"></script>' + '\n</body>';
+    return '<body>    ' + '\n    ' + config.global.body + '\n    <script src="' + js + '?t=' + this.time + '"></script>' + '\n</body>';
   },
   createHTML(filename, pageObj, dist) {
     let htmlDir = path.dirname(filename);
