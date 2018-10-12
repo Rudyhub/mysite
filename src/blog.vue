@@ -114,10 +114,12 @@ export default {
     color: #555;
   }
   .art-content{
-    width: calc(75% - .5em);
+    width: 75%;
     height: 100%;
     overflow: auto;
     float: right;
+    padding: .5em;
+    box-sizing: border-box;
   }
   @media (min-width: 1400px) {
     .art-list{
