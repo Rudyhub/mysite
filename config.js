@@ -31,7 +31,11 @@ let config = {
         }]
     }, {
         name: 'blog',
-        title: '博客'
+        title: '博客',
+        link: '<link rel="stylesheet" href="/plugins/highlight.css">',
+        script:
+            `<script src="/plugins/marked.min.js"></script>
+            <script src="/plugins/highlight.js"></script>`
     }, {
         name: 'album',
         title: '相册图册'
