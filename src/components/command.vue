@@ -1,7 +1,7 @@
 <template>
     <div class="command fs9">
       <div class="command-answer">
-        欢迎进入本rudy长老的个人系统，进入其他页面须输入指令。输入“?” 或 “帮助”，然后Enter，可查看所有指令。<br>
+        Hi~！欢迎进入Rudy的个人平台，进入其他页面须输入指令。输入“?” 或 “帮助”，然后Enter，可查看所有指令。<br>
       </div>
       <template v-for="(line, i) of lines">
         <div v-if="line.ask" class="command-ask" :key="'ask'+i">
@@ -58,6 +58,12 @@ export default {
         item.ask = new RegExp(ask, g ? g + '' : '')
         data.AI[i] = item
       })
+      if (/^#info$/.test(window.location.hash) && typeof res === 'object'){
+        this.lines.push({
+          ask: '个人信息',
+          answer: res[0].answer.join('<br>')
+        })
+      }
     }, err => {
       console.log(err)
     })
@@ -163,8 +169,7 @@ export default {
           if (val === 'index') {
             _this.pushLine('这就是首页了噻')
           } else {
-            let uri = window.location.protocol + '//' + window.location.host + '/' + page +'.html'
-            window.location = uri
+            window.location = window.location.protocol + '//' + window.location.host + '/' + page +'.html'
           }
           return
         }
@@ -180,6 +185,7 @@ export default {
               _this.ask = ''
               return
             case 'song':
+              _this.pushLine('正在搜...')
               music.search(val.replace(_this.aiKeys[aiKey], ''), () => {
                 _this.pushLine(_this.musicList())
               })

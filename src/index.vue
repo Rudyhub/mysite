@@ -23,7 +23,7 @@
     </div>
     <div class="ICP">
       <a class="ICP-a" href="http://www.miitbeian.gov.cn/" target="_blank">
-        粤ICP备 18116298号
+        粤ICP备 18116298-{{ICP}}号
       </a>
       <a class="ICP-a" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030402002546" target="_blank">
         <img class="ICP-img" src="/img/beian.png"/>
@@ -48,7 +48,8 @@ export default {
       lyric: '',
       lines: 0,
       songPlayed: 0,
-      songBufer: 0
+      songBufer: 0,
+      ICP: /isrudy\.com/.test(window.location.href) ? 2 : 1
     }
   },
   mounted () {
@@ -195,7 +196,7 @@ export default {
     bottom: 0;
     text-align: center;
     white-space: nowrap;
-    font-size: 14px;
+    font-size: 12px;
     opacity: 0.6;
   }
   a.ICP-a{

@@ -19,36 +19,45 @@
           <p class="fs18 about-p">It's not important who I am, but what I can do.</p>
         </div>
         <div ref="glassSkill" class="about-glass about-glass-2">
-          <h3 class="fs16 about-title">技能篇</h3>
-          <div class="fs10 chart-header">为了避免使用精通、熟练、掌握、了解等这类模糊概念容易词，以图表试展示不仅更直观，而且结合各项详细描述的话更能准确评估。知识往深了学，便不敢轻易使用“精通”二字。</div>
-          <div class="chart fs9">
-            <div class="chart-line" v-for="(skill, index) of skills" :key="index" @click="toggleDetail">
-              <div class="chart-hd">{{skill.name}}</div>
-              <div class="chart-td">
-                <span class="chart-progress" :title="skill.name">
-                  <i class="chart-progress-value" :style="'width:' + skill.value + '%;background:'+chartColor[skill.type].color">{{skill.value}}%</i>
-                </span>
-                <div class="chart-detail fs10" v-html="skill.detail"></div>
-              </div>
-              <div class="fs18 chart-more"><b class="chart-more-icon">&#187;</b></div>
-            </div>
-          </div>
-          <div class="chart-legendbar fs10">
-            <div class="chart-legend" v-for="(item, index) of chartColor" :key="index">
-              <i class="chart-legend-color" :style="'background:'+item.color" :title="item.text"></i>
-              <span class="chart-legend-text">{{item.text}}</span>
-            </div>
-          </div>
+          <h3 class="fs16 about-title">个人技能篇</h3>
+          <!--<div class="fs10 chart-header">为了避免使用精通、熟练、掌握、了解等这类模糊概念容易词，将图表展示，可展开看详细描述以正确评估。</div>-->
+          <!--<div class="chart fs9">-->
+            <!--<div class="chart-line" v-for="(skill, index) of skills" :key="index" @click="toggleDetail">-->
+              <!--<div class="chart-hd">{{skill.name}}</div>-->
+              <!--<div class="chart-td">-->
+                <!--<span class="chart-progress" :title="skill.name">-->
+                  <!--<i class="chart-progress-value" :style="'width:' + skill.value + '%;background:'+chartColor[skill.type].color">{{skill.value}}%</i>-->
+                <!--</span>-->
+                <!--<div class="chart-detail fs10" v-html="skill.detail"></div>-->
+              <!--</div>-->
+              <!--<div class="fs18 chart-more"><b class="chart-more-icon">&#187;</b></div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="chart-legendbar fs10">-->
+            <!--<div class="chart-legend" v-for="(item, index) of chartColor" :key="index">-->
+              <!--<i class="chart-legend-color" :style="'background:'+item.color" :title="item.text"></i>-->
+              <!--<span class="chart-legend-text">{{item.text}}</span>-->
+            <!--</div>-->
+          <!--</div>-->
+          <section class="panel-list">
+            <article class="panel-item" v-for="(skill, index) of skills" :key="index">
+              <h4 v-html="skill.title"></h4>
+              <ol class="skill-list" v-if="typeof skill.content === 'object'">
+                <li class="skill-item" v-for="(skillItem, sind) of skill.content" :key="sind" v-html="skillItem"></li>
+              </ol>
+              <div v-else v-html="skill.content"></div>
+            </article>
+          </section>
         </div>
         <div ref="glassCareer" class="about-glass  about-glass-3">
           <h3 class="about-title">工作经历篇</h3>
-          <section class="career">
-            <article class="career-item" v-for="(item, index) in career" :key="index">
+          <section class="panel-list">
+            <article class="panel-item" v-for="(item, index) in career" :key="index">
               <h4><span class="career-date">{{item.date}}</span><span class="career-job">{{item.job}}</span></h4>
               <img v-if="item.logo" class="career-logo" :src="item.logo">
               <div v-else class="career-no-logo">?</div>
               <p class="career-company">{{item.company}}</p>
-              <p class="career-harvest">{{item.harvest}}</p>
+              <p class="career-harvest" v-html="item.harvest"></p>
             </article>
           </section>
         </div>
@@ -326,11 +335,17 @@ export default {
   .chart-detail-show .chart-more-icon{
     display: none;
   }
-  .career-item{
+  .panel-item{
     margin: 3% 2em;
     background: rgba(77, 144, 165, 0.3);
     padding: .5em 1em;
     border-radius: 4px;
+  }
+  .skill-item{
+    background: rgba(77, 144, 165, 0.3);
+    padding: .5em;
+    border-radius: 4px;
+    margin: 1% 0;
   }
   .career-date{
     padding-right: 2em;

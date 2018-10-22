@@ -39,11 +39,12 @@ export default {
       ]}
   },
   mounted () {
-    let items, els, reg, timer
+    let items, els, reg, timer, input
     items = {}
     els = this.$el.querySelectorAll('[data-code]')
     reg = /^F([1-4]|[6-9]|11)$/i
     function itemAnimateEnd () {
+      input = document.querySelector('.command-input')
       this.classList.remove('active')
     }
     for (let i = 0, len = els.length; i < len; i++) {
@@ -54,6 +55,9 @@ export default {
     document.addEventListener('keydown', function (e) {
       if (reg.test(e.code)) {
         e.preventDefault()
+      }
+      if(e.code === 'Enter' && input && input !== document.activeElement){
+      	input.focus();
       }
       if (items[e.code]) {
         items[e.code].classList.remove('active')
