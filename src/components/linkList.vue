@@ -17,7 +17,7 @@
         </h2>
         <div class="link-list-list">
           <time class="link-list-time">{{item.date | datemat}} </time>
-          <a class="link-list-item link-list-href" v-for="(href, hIndex) of giveHref(item.href)" :key="'href'+hIndex" :href="hrefFilter(href, start + index)" target="_blank">
+          <a class="link-list-item link-list-href" v-if="item.href" v-for="(href, hIndex) of giveHref(item.href)" :key="'href'+hIndex" :href="hrefFilter(href, start + index)" target="_blank">
             <span class="link-list-favhd">体验</span><img class="link-list-favicon" :src="getFavicon(href)"/>
           </a>
           <a class="link-list-item link-list-source" v-if="item.source" v-for="(source, sIndex) of item.source" :key="'source'+sIndex" :href="hrefFilter(source, start + index)" target="_blank">

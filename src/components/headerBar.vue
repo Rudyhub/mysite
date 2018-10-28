@@ -3,14 +3,14 @@
     <div class="header-container flex-between">
       <img class="face" src="/img/logo.png" alt="">
       <form class="header-form" action="">
-        <input class="header-search-input" type="text" name="keyword" placeholder="search" value="" title="输入搜索的关键词">
+        <input class="header-search-input" style="display: none" type="text" name="keyword" placeholder="search" value="" title="输入搜索的关键词">
       </form>
       <div class="header-navbar">
         <nav class="header-nav">
-          <a class="header-nav-item" v-for="(item, name) of nav" :key="name" :class="name===active ? 'header-nav-active' : ''" :href="'/'+name+'.html'">{{item}}</a>
+          <a class="header-nav-item" v-for="(item, name) of nav" :key="name" :class="name===active ? 'header-nav-active' : ''" :href="name==='index' ? '/' : '/'+name+(mode ? mode : '')+'.html'">{{item}}</a>
         </nav>
         <nav class="header-nav-dropmenu">
-          <a class="header-nav-item" v-for="(item, name) of nav" :key="name" :class="name===active ? 'header-nav-active' : ''" :href="'/'+name+'.html'">{{item}}</a>
+          <a class="header-nav-item" v-for="(item, name) of nav" :key="name" :class="name===active ? 'header-nav-active' : ''" :href="name==='index' ? '/' : '/'+name+(mode ? mode : '')+'.html'">{{item}}</a>
         </nav>
       </div>
     </div>
@@ -21,7 +21,7 @@
 import store from '../../utils/store.js'
 export default {
   name: 'header-bar',
-  props: ['active'],
+  props: ['active', 'mode'],
   data () {
     return {
       nav: store.nav
