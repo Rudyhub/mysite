@@ -50,7 +50,8 @@ let config = {
 	}, {
 		name: 'works2d',
 		title: '普通模式-作品集合',
-		component: 'works2d.vue'
+		component: 'works2d.vue',
+		script: '<script src="/js/qrcode.min.js"></script>'
 	}]
 };
 
