@@ -1,26 +1,55 @@
 <template>
-    <div class="works2d">
+    <div class="works2d" @scroll="onscroll">
         <header-bar active="works" mode="2d"/>
         <div class="works2d-main">
-            <nav class="fixed-nav">
+            <nav class="fixed-nav" :class="{'nav-fixed-top': navFixed}">
                 <a class="fixed-nav-item" v-for="(item, name) of nav" :key="name" :class="{active: active === name}" :href="'#'+name">{{item}}</a>
             </nav>
             <div class="panel" id="webs">
                 <h3 class="panel-title" :title="webs.title">{{webs.title}}</h3>
                 <ul class="works-list flex-between">
-                    <list-item v-for="(item, index) of webs.items" :item="item" :key="index" :index="index" :total="webs.items.length"/>
+                    <list-item v-for="(item, index) of webs.items" :item="item" :key="index" :index="index" :total="webs.items.length" :href="webs.href"/>
                 </ul>
             </div>
             <div class="panel" id="games">
                 <h3 class="panel-title" :title="games.title">{{games.title}}</h3>
                 <ul class="works-list flex-between">
                     <li class="works-item" v-if="games.items" v-for="(item, index) of games.items" :key="index">
-                        <h4 class="works-item-title">{{item.title}}</h4>
+                        <h4 class="works-item-title">{{item.title}} &nbsp; ({{index+1}} / {{games.items.length}})</h4>
                         <div class="preview-iframe-box">
-                            <iframe class="preview-iframe" :src="item.href[0]" frameborder="0"></iframe>
-                            <div class="preview-qrcode" @mouseenter="showQrcode($event, item.href[0])"></div>
+                            <template v-if="item.href && item.href[0]">
+                                <iframe class="preview-iframe" :data-src="item.href[0]" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                <div class="preview-qrcode" @mouseenter="showQrcode($event, item.href[0])">
+                                    <h5>微信扫一扫体验</h5>
+                                </div>
+                            </template>
+                            <div v-else v-html="item.desc" class="preview-none"></div>
                         </div>
                     </li>
+                </ul>
+            </div>
+            <div class="panel" id="app">
+                <h3 class="panel-title" :title="app.title">{{app.title}}</h3>
+                <ul class="works-list flex-between">
+                    <list-item v-for="(item, index) of app.items" :item="item" :key="index" :index="index" :total="app.items.length" :href="app.href"/>
+                </ul>
+            </div>
+            <div class="panel" id="effects">
+                <h3 class="panel-title" :title="effects.title">
+                    {{effects.title}}
+                    <a class="access-all" :href="effects.href" target="_blank">查看全部项目</a>
+                </h3>
+                <ul class="works-list flex-between">
+                    <list-item v-for="(item, index) of effects.items" :item="item" :key="index" :index="index" :total="effects.items.length" :href="effects.href"/>
+                </ul>
+            </div>
+            <div class="panel" id="homework">
+                <h3 class="panel-title" :title="homework.title">
+                    {{homework.title}}
+                    <a class="access-all" :href="homework.href" target="_blank">查看全部项目</a>
+                </h3>
+                <ul class="works-list flex-between">
+                    <list-item v-for="(item, index) of homework.items" :item="item" :key="index" :index="index" :total="homework.items.length" :href="homework.href"/>
                 </ul>
             </div>
         </div>
@@ -55,6 +84,7 @@ export default {
 						_this.$set(_this[k], key, res[k][key])
                     }
                 }
+                _this.navData(_this)
 				sessionStorage.setItem('worksData', JSON.stringify(res))
 			}, err => {
 				console.log(err)
@@ -69,13 +99,42 @@ export default {
 			effects: '',
 			homework: ''
         }
-        for(let key in works.nav){
-    		works.nav[key] = works[key].title
-        }
+        _this.navData(works)
         works.active = 'webs'
+        works.navFixed = false
     	return works
     },
+    mounted(){
+    	let iframes, len, i
+    	iframes = this.$el.querySelectorAll('iframe')
+        len = iframes.length
+    	this.panel = this.$el.querySelectorAll('.panel')
+        this.panelLen = this.panel.length
+        this.$el.scrollTop = 0
+        this.$watch('active', (val, old) => {
+        	if(val !== old && val === 'games'){
+        		for(i=0; i<len; i++){
+        			if(!iframes[i].src) iframes[i].src = iframes[i].getAttribute('data-src')
+                }
+            }
+        })
+    },
     methods: {
+        onscroll(){
+        	let scrollTop, i
+            scrollTop = this.$el.scrollTop
+            this.navFixed = scrollTop > 100
+            for(i=0; i<this.panelLen; i++){
+                if(scrollTop > this.panel[i].offsetTop){
+                	this.active = this.panel[i].id
+                }
+            }
+        },
+    	navData(works){
+			for(let key in works.nav){
+				works.nav[key] = works[key].title
+			}
+        },
     	showQrcode(e, href) {
     		let target = e.currentTarget
     		if(target.hasAttribute('data-qrcode')) return
@@ -105,6 +164,12 @@ export default {
     .fixed-nav{
         overflow: hidden;
     }
+    .nav-fixed-top{
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 999;
+    }
     .fixed-nav-item:visited,
     .fixed-nav-item:link,
     .fixed-nav-item{
@@ -132,7 +197,6 @@ export default {
         font-size: 16px;
         padding: .5em;
         box-sizing: border-box;
-        cursor: pointer;
         transition: background .5s;
         position: relative;
         overflow: hidden;
@@ -183,7 +247,7 @@ export default {
         color: #fff;
         padding: .5em;
         font-weight: normal;
-        font-size: 14px;
+        font-size: 16px;
     }
     .preview-iframe-box{
         position: relative;
@@ -194,6 +258,18 @@ export default {
         height: 100%;
         width: 100%;
     }
+    .preview-none{
+        width: 100%;
+        height: 100%;
+        text-indent: 2em;
+        font-size: 14px;
+        color: #555;
+        box-sizing: border-box;
+        padding: 1em .5em;
+        line-height: 1.6;
+        overflow: auto;
+        text-align: justify;
+    }
     .preview-qrcode{
         position: absolute;
         top: 0;
@@ -203,8 +279,30 @@ export default {
         transform: translateX(100%);
         transition: transform .5s;
         background-color: rgba(0,0,0,.5);
+        text-align: center;
+        z-index: 1;
     }
     .preview-iframe-box:hover .preview-qrcode{
         transform: translateX(0);
+    }
+    .preview-qrcode h5{
+        color: #fff;
+        font-size: 16px;
+        background-color: rgba(0, 0, 0, .6);
+        padding: .5em;
+    }
+    .preview-qrcode img{
+        display: block;
+        width: 80%;
+        margin: 1em auto;
+        border: 5px solid #fff;
+        box-sizing: border-box;
+    }
+    .access-all{
+        font-weight: normal;
+        position: absolute;
+        right: 1em;
+        font-size: 14px;
+        z-index: 2;
     }
 </style>

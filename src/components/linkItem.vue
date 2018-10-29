@@ -8,8 +8,8 @@
         </h2>
         <div class="link-list-list">
             <time class="link-list-time">{{item.date | datemat}} </time>
-            <a class="link-list-item link-list-href" v-if="item.href" v-for="(href, hIndex) of giveHref(item.href)" :key="'href'+hIndex" :href="hrefFilter(href, index)" target="_blank">
-                <span class="link-list-favhd">体验</span><img class="link-list-favicon" :src="getFavicon(href)"/>
+            <a class="link-list-item link-list-href" v-if="item.href || href" v-for="(href, hIndex) of giveHref(item.href)" :key="'href'+hIndex" :href="hrefFilter(href, index)" target="_blank">
+                <span class="link-list-favhd">链接</span><img class="link-list-favicon" :src="getFavicon(href)"/>
             </a>
             <a class="link-list-item link-list-source" v-if="item.source" v-for="(source, sIndex) of item.source" :key="'source'+sIndex" :href="hrefFilter(source, index)" target="_blank">
                 <span class="link-list-favhd">源码</span><img class="link-list-favicon" :src="getFavicon(source)"/>
@@ -27,7 +27,7 @@ import utils from '../../utils/utils.js'
 import thumb from './thumb'
 export default {
     name: 'linkItem',
-    props: ['item', 'index', 'total'],
+    props: ['item', 'index', 'total', 'href'],
     components: {thumb},
 	filters: {
 		datemat (date) {

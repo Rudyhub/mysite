@@ -19,6 +19,9 @@ let config = {
 		name: 'index',
 		title: '首页',
 	}, {
+		name: 'home',
+		title: '主页'
+	}, {
 		name: 'about',
 		title: '关于',
 	}, {
