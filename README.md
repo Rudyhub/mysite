@@ -6,6 +6,8 @@
 
 ### 针对开发者朋友
 
+*****
+
 如果也想构建多页应用，可在自己的项目里直接使用pre.build.js、config.js、webpack.config.js这三个文件。
 
 1. 文件pre.build.js： 它是node预处理程序，其作用就是准备文件和目录，以及提供给webpack的配置项config，是构建多页面的核心逻辑。如果你不了解它，最好不要动它，只管用它就好。
