@@ -111,8 +111,8 @@ export default {
     	this.panel = this.$el.querySelectorAll('.panel')
         this.panelLen = this.panel.length
         this.$el.scrollTop = 0
-        this.$watch('active', (val, old) => {
-        	if(val !== old && val === 'games'){
+        this.$watch('active', val => {
+        	if(val === 'games'){
         		for(i=0; i<len; i++){
         			if(!iframes[i].src) iframes[i].src = iframes[i].getAttribute('data-src')
                 }
