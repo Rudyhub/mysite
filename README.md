@@ -17,24 +17,24 @@
 ```
 {
   //也就是html标签上的lang属性
-	lang: 'zh-cn',
+  lang: 'zh-cn',
   //为是所有页面公用的部分，后面pages里的配置对应的项目会累加，比如: title = global.title + pages[0].title
-	global: {
-		title: '网站标题公共部分',
-		meta: `
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <meta name="keyworks" content="关键字">
-            <meta name="description" content="描述">`,
-		link: `
-            <link rel="icon" type="image/x-icon" href="/favicon.ico">
-            <link rel="stylesheet" href="/css/global.css">`,
-		script: `<script src="/js/rem.js"></script>`,
-		style: '',
+  global: {
+    title: '网站标题公共部分',
+    meta: `
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="keyworks" content="关键字">
+        <meta name="description" content="描述">`,
+    link: `
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="stylesheet" href="/css/global.css">`,
+    script: `<script src="/js/rem.js"></script>`,
+    style: '',
     //这里的app就是vue的绑定节点，在它之前或之后放任何东西，但不要在app里面放东西。
-		body: '<div id="app"></div>'
-	},
+    body: '<div id="app"></div>'
+  },
   /*
    * 这里就配置你页面的结构，配置字段有title, meta, link, script, style, component, children。
    * 其中，title, meta, link, script, style会累加到global对应的字段。
@@ -42,25 +42,25 @@
    * 如果不指定组件路径，默认为src目录下的[name].vue，如: index.vue
    * children配置子页面，字段同上。
    */
-	pages: [{
-		name: 'index',
-		title: '首页'
-	}, {
-		name: 'works',
-		title: '作品',
-		children: [{
-			name: 'detail',
-			title: '作品详细',
-			component: 'works/detail.vue'
-		}]
-	}, {
-		name: 'blog',
-		title: '博客',
-		link: '<link rel="stylesheet" href="/plugins/highlight.css">',
-		script:
-			`<script src="/plugins/marked.min.js"></script>
-       <script src="/plugins/highlight.js"></script>`
-	}]
+  pages: [{
+    name: 'index',
+    title: '首页'
+  }, {
+    name: 'works',
+    title: '作品',
+    children: [{
+      name: 'detail',
+      title: '作品详细',
+      component: 'works/detail.vue'
+    }]
+  }, {
+    name: 'blog',
+    title: '博客',
+    link: '<link rel="stylesheet" href="/plugins/highlight.css">',
+    script:`
+        <script src="/plugins/marked.min.js"></script>
+        <script src="/plugins/highlight.js"></script>`
+  }]
 }
 ```
 #### 如何构建自己的项目
@@ -70,24 +70,24 @@
 4. 修改config.js，配置如下：
 ```
 {
-	lang: 'zh-cn',
-	global: {
-		title: '项目',
-		meta: `
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <meta name="keyworks" content="关键字">
-            <meta name="description" content="描述">`,
-		link: '',
-		script: '',
-		style: '',
-		body: '<div id="app"></div>'
-	},
-	pages: [{
-		name: 'index',
-		title: '首页'
-	}]
+  lang: 'zh-cn',
+  global: {
+    title: '项目',
+    meta: `
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="keyworks" content="关键字">
+        <meta name="description" content="描述">`,
+    link: '',
+    script: '',
+    style: '',
+    body: '<div id="app"></div>'
+  },
+  pages: [{
+    name: 'index',
+    title: '首页'
+  }]
 }
 ```
 恭喜完成。
