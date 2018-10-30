@@ -4,7 +4,7 @@
 
 抛弃vue-cli，动手构建vue多页面应用，不做SPA单页应用突然清爽许多，灵活度更高。
 
-[链接:http://isrudy.com](https://isrudy.com/)
+[http://isrudy.com](http://isrudy.com/)
 
 ### 针对开发者朋友
 
