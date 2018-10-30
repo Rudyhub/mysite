@@ -21,15 +21,6 @@
         </div>
       </div>
     </div>
-    <div class="ICP">
-      <a class="ICP-a" href="http://www.miitbeian.gov.cn/" target="_blank">
-        粤ICP备 18116298-{{ICP}}号
-      </a>
-      <a class="ICP-a" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030402002546" target="_blank">
-        <img class="ICP-img" src="/img/beian.png"/>
-        <span class="ICP-span">粤公网安备 44030402002546号</span>
-      </a>
-    </div>
   </div>
 </template>
 
@@ -48,8 +39,7 @@ export default {
       lyric: '',
       lines: 0,
       songPlayed: 0,
-      songBufer: 0,
-      ICP: /isrudy\.com/.test(window.location.href) ? 2 : 1
+      songBufer: 0
     }
   },
   mounted () {
@@ -97,7 +87,7 @@ export default {
   }
   .computer{
     transform-style: preserve-3d;
-    transform: translateY(.1rem);
+    transform: translateY(.4rem);
     width: 10rem;
     height: 12rem;
     margin: 0 auto;
@@ -189,32 +179,5 @@ export default {
     border-top: 1px dotted;
     border-bottom: 1px dotted;
     width: 100%;
-  }
-  .ICP{
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    text-align: center;
-    white-space: nowrap;
-    font-size: 12px;
-    opacity: 0.6;
-  }
-  a.ICP-a{
-    display: inline-block;
-    vertical-align: middle;
-    color: #fff;
-    padding: 0 1em;
-  }
-  .ICP-img, .ICP-span{
-    display: inline-block;
-    vertical-align: middle;
-  }
-  @media (max-width: 768px) {
-    .ICP{
-      font-size: .2rem;
-    }
-    .ICP-img{
-      width: .33rem;
-    }
   }
 </style>
