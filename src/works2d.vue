@@ -13,13 +13,13 @@
             </div>
             <div class="panel" id="games">
                 <h3 class="panel-title" :title="games.title">{{games.title}}</h3>
-                <ul class="works-list flex-between">
+                <ul class="works-list flex-round">
                     <li class="works-item" v-if="games.items" v-for="(item, index) of games.items" :key="index">
                         <h4 class="works-item-title">{{item.title}} &nbsp; ({{index+1}} / {{games.items.length}})</h4>
-                        <div class="preview-iframe-box">
+                        <div class="preview-box">
                             <template v-if="item.href && item.href[0]">
-                                <iframe class="preview-iframe" :data-src="item.href[0]" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-                                <div class="preview-qrcode" @mouseenter="showQrcode($event, item.href[0])">
+                                <video ref="video" class="preview-img" @mouseenter="play" v-if="item.video" :data-src="'https://isrudy.com/media/games/'+item.video" loop></video>
+                                <div ref="qrcode" class="preview-qrcode" :data-href="item.href[0]">
                                     <h5>微信扫一扫体验</h5>
                                 </div>
                             </template>
@@ -105,19 +105,26 @@ export default {
     	return works
     },
     mounted(){
-    	let iframes, len, i
-    	iframes = this.$el.querySelectorAll('iframe')
-        len = iframes.length
+    	let videos, len, qlen, i, qrcode
+        videos = this.$refs.video
+        qrcode = this.$refs.qrcode
+        len = videos.length
+        qlen = qrcode.length;
+        this.gameLen = len
     	this.panel = this.$el.querySelectorAll('.panel')
         this.panelLen = this.panel.length
         this.$el.scrollTop = 0
         this.$watch('active', val => {
         	if(val === 'games'){
         		for(i=0; i<len; i++){
-        			if(!iframes[i].src) iframes[i].src = iframes[i].getAttribute('data-src')
+                    let attr = videos[i].getAttribute('data-src')
+                    if(videos[i].src != attr) videos[i].src = attr
                 }
             }
         })
+        for(i = 0; i<qlen; i++){
+            new QRCode(qrcode[i], qrcode[i].getAttribute('data-href'))
+        }
     },
     methods: {
         onscroll(){
@@ -135,15 +142,12 @@ export default {
 				works.nav[key] = works[key].title
 			}
         },
-    	showQrcode(e, href) {
-    		let target = e.currentTarget
-    		if(target.hasAttribute('data-qrcode')) return
-            try{
-    			new QRCode(target, href)
-                target.setAttribute('data-qrcode', '')
-            } catch (err) {
-                console.log(err)
-			}
+        play(e){
+            let target = e.currentTarget
+            if(!target.paused) return;
+            setTimeout(() => {
+                target.play()
+            }, 500)
         }
     }
 }
@@ -197,7 +201,7 @@ export default {
         font-size: 16px;
         padding: .5em;
         box-sizing: border-box;
-        transition: background .5s;
+        transition: background-color .5s;
         position: relative;
         overflow: hidden;
     }
@@ -232,7 +236,6 @@ export default {
     }
     .works-item{
         width: 312px;
-        height: 490px;
         padding: 5px;
         overflow: hidden;
         border: 1px solid #ccc;
@@ -249,14 +252,19 @@ export default {
         font-weight: normal;
         font-size: 16px;
     }
-    .preview-iframe-box{
+    .preview-box{
         position: relative;
-        height: 442px;
+        height: 556px;
         overflow: hidden;
     }
-    .preview-iframe{
-        height: 100%;
-        width: 100%;
+    .preview-img{
+        max-width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
     }
     .preview-none{
         width: 100%;
@@ -277,12 +285,12 @@ export default {
         width: 100%;
         height: 100%;
         transform: translateX(100%);
-        transition: transform .5s;
+        transition: transform .6s;
         background-color: rgba(0,0,0,.5);
         text-align: center;
         z-index: 1;
     }
-    .preview-iframe-box:hover .preview-qrcode{
+    .works-item-title:hover ~ .preview-box .preview-qrcode{
         transform: translateX(0);
     }
     .preview-qrcode h5{

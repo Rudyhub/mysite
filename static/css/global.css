@@ -60,6 +60,12 @@ a:visited{
   justify-content: space-between;
   align-content: center;
 }
+.flex-round{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  align-content: center;
+}
 .fade-enter-active,
 .fade-leave-active{
   transition: opacity .5s;
