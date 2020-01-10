@@ -6,8 +6,8 @@ let config = {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <meta name="keyworks" content="最酷网站,最骚网站,前端高境界,web 3D,css3的强大,transform, animation, @keyframes,令狐长老,Rudy">
-            <meta name="description" content="令狐长老（Rudy）的个人网站，最酷的3D体验，这是真正的前端，多数人估计都不知道css3+js如此强大。">`,
+            <meta name="keyworks" content="最酷网站,最骚网站,前端高境界,web 3D,css3的强大,transform, animation, @keyframes,Rudy">
+            <meta name="description" content="个人网站，最酷的3D体验，这是真正的前端，多数人估计都不知道css3+js如此强大。">`,
 		link: `
             <link rel="icon" type="image/x-icon" href="/favicon.ico">
             <link rel="stylesheet" href="/css/global.css">`,
@@ -19,42 +19,22 @@ let config = {
 		name: 'index',
 		title: '首页',
 	}, {
-		name: 'home',
-		title: '主页'
+		name: 'page1',
+		title: '第一个页面'
 	}, {
-		name: 'about',
-		title: '关于',
-	}, {
-		name: 'works',
-		title: '作品',
+		name: 'page2',
+		title: '第二个页面',
 		children: [{
 			name: 'detail',
 			title: '作品观赏',
-			component: 'worksDetail.vue'
+			component: 'childPage.vue'
 		}]
-	}, {
-		name: 'blog',
-		title: '博客',
-		link: '<link rel="stylesheet" href="/plugins/highlight.css">',
-		script:
-			`<script src="/plugins/marked.min.js"></script>
-            <script src="/plugins/highlight.js"></script>`
-	}, {
-		name: 'album',
-		title: '相册图册'
-	}, {
-		name: 'home2d',
-		title: '普通模式-主页',
-		component: 'home2d.vue'
-	}, {
-		name: 'about2d',
-		title: '普通模式-个人介绍',
-		component: 'about2d.vue'
-	}, {
-		name: 'works2d',
-		title: '普通模式-作品集合',
-		component: 'works2d.vue',
-		script: '<script src="/js/qrcode.min.js"></script>'
+	},
+	{
+		name: 'page3',
+		title: '第二个页面',
+		link: '<link rel="stylesheet" href="/plugins/example.css">',
+		script:'<script src="/plugins/jquery.js"></script>'
 	}]
 };
 

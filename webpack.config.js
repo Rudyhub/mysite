@@ -56,7 +56,7 @@ module.exports = {
   devServer: {
     contentBase: distPath,
     compress: true,
-    port: 8080,
+    port: 3003,
     clientLogLevel: 'warning',
     hot: true,
     stats
